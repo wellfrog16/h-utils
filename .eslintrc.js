@@ -1,5 +1,5 @@
-const path = require('path')
-const resolve = _path => path.resolve(__dirname, _path)
+// const path = require('path')
+// const resolve = _path => path.resolve(__dirname, _path)
 // const DOMGlobals = ['window', 'document']
 // const NodeGlobals = ['module', 'require']
 
@@ -7,12 +7,13 @@ const resolve = _path => path.resolve(__dirname, _path)
 module.exports = {
     env: {
         browser: true,
-        es6: true
+        es6: true,
+        node: true,
     },
-    // parser: '@typescript-eslint/parser', // 配置ts解析器
+    parser: '@typescript-eslint/parser', // 配置ts解析器
     parserOptions: {
-        project: resolve('./tsconfig.json'), 
-        tsconfigRootDir: resolve('./'),
+        project: './tsconfig.json', 
+        tsconfigRootDir: './',
         sourceType: 'module'
     },
     // plugins: ['prettier'],

@@ -8,7 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --config"
   },
-  "keywords": ["h-utils", "utils"],
+  "keywords": [
+    "h-utils",
+    "utils"
+  ],
   "author": "wellfrog",
   "license": "ISC",
   "homepage": "https://github.com/wellfrog16/h-utils",
@@ -19,6 +22,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.1",
+    "@types/node": "^15.12.5",
     "@typescript-eslint/parser": "^4.28.0",
     "rollup": "^2.52.3",
     "rollup-plugin-dts": "^3.0.2",
