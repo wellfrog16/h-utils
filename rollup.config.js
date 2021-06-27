@@ -1,6 +1,9 @@
+// import { RollupOptions } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import { eslint } from 'rollup-plugin-eslint' // eslint插件
+
+// const production = !process.env.ROLLUP_WATCH;
 
 export default [
     {
@@ -13,6 +16,7 @@ export default [
             {
                 file: "lib/bundle.esm.js",
                 format: "es",
+                // sourcemap: true,
             },
         ],
         plugins: [

@@ -11,11 +11,11 @@ module.exports = {
         node: true,
     },
     parser: '@typescript-eslint/parser', // 配置ts解析器
-    parserOptions: {
-        project: './tsconfig.json', 
-        tsconfigRootDir: './',
-        sourceType: 'module'
-    },
+    // parserOptions: {
+    //     project: './tsconfig.json', 
+    //     tsconfigRootDir: './',
+    //     sourceType: 'module'
+    // },
     // plugins: ['prettier'],
     rules: {
         'indent': ['error', 4],
