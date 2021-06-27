@@ -10,11 +10,11 @@ export default [
         input: "src/index.ts",
         output: [
             {
-                file: "lib/bundle.cjs.js",
+                file: "lib/index.cjs.js",
                 format: "cjs",
             },
             {
-                file: "lib/bundle.esm.js",
+                file: "lib/index.js",
                 format: "es",
                 // sourcemap: true,
             },

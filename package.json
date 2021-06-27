@@ -1,13 +1,16 @@
 {
-  "name": "@frog/h-utils",
-  "version": "0.0.1",
+  "name": "@frog-res/h-utils",
+  "version": "0.0.4",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "publish2": "npm publish --access public"
   },
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "h-utils",
     "utils"
@@ -20,8 +23,14 @@
     "url": "git://github.com/wellfrog16/h-utils.git",
     "web": "https://github.com/wellfrog16/h-utils"
   },
+  "dependencies": {
+    "crypto-js": "^4.0.0",
+    "lodash-es": "^4.17.21"
+  },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.1",
+    "@types/crypto-js": "^4.0.1",
+    "@types/lodash-es": "^4.17.4",
     "@types/node": "^15.12.5",
     "@typescript-eslint/parser": "^4.28.0",
     "rollup": "^2.52.3",
