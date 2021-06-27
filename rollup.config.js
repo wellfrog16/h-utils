@@ -1,7 +1,7 @@
 // import { RollupOptions } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
-import { eslint } from 'rollup-plugin-eslint' // eslint插件
+// import { eslint } from 'rollup-plugin-eslint' // eslint插件，有bug
 
 // const production = !process.env.ROLLUP_WATCH;
 
@@ -24,11 +24,12 @@ export default [
                 exclude: "node_modules/**",
                 typescript: require("typescript"),
             }),
-            eslint({
-                throwOnError: true,
-                include: ['src/**/*.ts'],
-                exclude: ['node_modules/**', 'lib/**']
-            })
+            // eslint有bug
+            // eslint({
+            //     throwOnError: true,
+            //     include: ['src/**/*.ts'],
+            //     exclude: ['node_modules/**', 'lib/**']
+            // })
         ],
     },
     {

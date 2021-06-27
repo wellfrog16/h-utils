@@ -1,8 +1,8 @@
 import { isNumber, isDate } from 'lodash-es';
 import AES from 'crypto-js/AES';
-import utf8 from 'crypto-js/enc-utf8';
+import encUtf8 from 'crypto-js/enc-utf8';
 
-const SECRET_KEY = 'frog';
+const SECRET_KEY = 'THIS_IS_SECRET';
 
 // set 接口
 export interface IStorageSetOption {
@@ -96,7 +96,7 @@ function get<T>(key: string, option?: IStorageGetOption): T | string | null {
     if (!result) { return null; }
 
     try {
-        result = item.encrypt ? JSON.parse(AES.decrypt(result, option?.secret || SECRET_KEY).toString(utf8)) : result;
+        result = item.encrypt ? JSON.parse(AES.decrypt(result, option?.secret || SECRET_KEY).toString(encUtf8)) : result;
     } catch (err) {
         console.warn(err);
         result = null;
