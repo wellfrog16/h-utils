@@ -1,5 +1,5 @@
 import { isNumber, isDate } from 'lodash-es';
-import AES from 'crypto-js/AES';
+import AES from 'crypto-js/aes';
 import encUtf8 from 'crypto-js/enc-utf8';
 
 const SECRET_KEY = 'THIS_IS_SECRET';
