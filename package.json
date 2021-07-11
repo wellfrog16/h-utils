@@ -31,12 +31,14 @@
     "vditor": "^3.8.5"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.7",
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/crypto-js": "^4.0.1",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^15.12.5",
     "@typescript-eslint/parser": "^4.28.0",
     "rollup": "^2.52.3",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-dts": "^3.0.2",
     "rollup-plugin-eslint": "^7.0.0",
     "tslib": "^2.3.0",
