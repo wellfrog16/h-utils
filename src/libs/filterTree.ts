@@ -1,4 +1,5 @@
 // 树查找，节点符合要求则返回整个节点
+// eslint-disable-next-line no-unused-vars
 const filterTree = <T extends { children?: T[] }>(items: T[], check: (item: T) => boolean): T[] => {
     const result: T[] = [];
 
