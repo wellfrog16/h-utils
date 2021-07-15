@@ -102,7 +102,7 @@ export const loadCss = (urls: string[]) => {
         });
 };
 
-export const loadCdn = <T extends keyof ICDNType>(name: T) => {
+export const loadCdnSingle = <T extends keyof ICDNType>(name: T) => {
     if (!cdn[name]) { throw new Error(`${name} 不存在`); }
     const { js, css, instance } = cdn[name];
     Array.isArray(css) && css.length > 0 && loadCss(css);
@@ -114,11 +114,14 @@ export const loadCdn = <T extends keyof ICDNType>(name: T) => {
     });
 };
 
+export const loadCdn = <T extends keyof ICDNType>(names: T[]) => Promise.all(names.map(name => loadCdnSingle(name)));
+
 
 export default {
     loadScriptSingle,
     loadScript,
     loadCss,
+    loadCdnSingle,
     loadCdn,
     baseCdn,
     tinymceVersion,

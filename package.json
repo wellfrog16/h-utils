@@ -1,12 +1,13 @@
 {
   "name": "@frog-res/h-utils",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rollup --config",
-    "publish2": "npm publish --access public"
+    "publish2": "npm publish --access public",
+    "doc": "typedoc src/index.ts"
   },
   "files": [
     "lib"
@@ -42,6 +43,7 @@
     "rollup-plugin-dts": "^3.0.2",
     "rollup-plugin-eslint": "^7.0.0",
     "tslib": "^2.3.0",
+    "typedoc": "^0.21.3",
     "typescript": "^4.3.4"
   }
 }
