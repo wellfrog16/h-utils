@@ -1,6 +1,7 @@
 import ClipboardJS from 'clipboard/src/clipboard';
 import Vditor from 'vditor/dist';
 import Tinymce from 'tinymce/tinymce';
+import QRCode from 'qrcode';
 
 export const baseCdn = '//cdn.jsdelivr.net/npm';
 export const tinymceVersion = 'tinymce@5.8.1';
@@ -10,6 +11,7 @@ export interface ICDNType {
     screenfull: string;
     vditor: typeof Vditor;
     tinymce: typeof Tinymce;
+    QRCode: typeof QRCode;
 }
 
 const cdn = {
@@ -53,6 +55,14 @@ const cdn = {
             // `${baseCdn}/tinymce@5.8.1/themes/silver/theme.min.js`,
             // `${baseCdn}/tinymce@5.8.1/icons/default/icons.js`,
             // `${baseCdn}/tinymce@5.8.1/plugins/lists/plugin.js`,
+        ],
+    },
+
+    QRCode: {
+        instance: () => window.QRCode as ICDNType['QRCode'],
+        css: [],
+        js: [
+            `${baseCdn}/qrcode@1.4.4/build/qrcode.min.js`,
         ],
     },
 };

@@ -4,4 +4,5 @@ interface Window {
     screenfull: unknown;
     Vditor: unknown;
     tinyMCE: unknown;
+    QRCode: unknown;
 }

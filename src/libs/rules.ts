@@ -6,6 +6,13 @@ export interface IRuleOptions {
     message: string;
 }
 
+interface IBaseRule {
+    required?: boolean;
+    pattern?: unknown;
+    message?: string | (() => string);
+    trigger?: string
+}
+
 const rules = {
     /**
      * 自带类型校验
@@ -14,9 +21,9 @@ const rules = {
      * @param {JSON} [options={}]
      * @returns
      */
-    check(key: string, options = {}): Record<string, unknown[]> {
-        const params = { required: true, trigger: 'blur', ...options };
-        const r: Record<string, unknown[]> = {};
+    check<T extends IBaseRule>(key: string, options: T): Record<string, T[]> {
+        const params: T = { required: true, trigger: 'blur', ...options };
+        const r: Record<string, T[]> = {};
         r[key] = [{ ...params }];
         return r;
     },
