@@ -27,6 +27,7 @@
   "dependencies": {
     "clipboard": "^2.0.8",
     "crypto-js": "^4.0.0",
+    "element-plus": "^1.0.2-beta.71",
     "lodash-es": "^4.17.21",
     "qrcode": "^1.4.4",
     "tinymce": "^5.8.2",

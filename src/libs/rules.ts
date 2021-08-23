@@ -1,16 +1,11 @@
+import type { FormRulesMap, FormItemRule } from 'element-plus/lib/el-form/src/form.type';
+
 export interface IRuleOptions {
     name: string;
     allowEmpty: boolean; // allowEmpty: 允许为空(false)
     allowSpecial: boolean; // allowSpecial: 允许特殊字符(true)
     trigger: 'change' | 'blur';
     message: string;
-}
-
-interface IBaseRule {
-    required?: boolean;
-    pattern?: unknown;
-    message?: string | (() => string);
-    trigger?: string
 }
 
 const rules = {
@@ -21,9 +16,9 @@ const rules = {
      * @param {JSON} [options={}]
      * @returns
      */
-    check<T extends IBaseRule>(key: string, options: T): Record<string, T[]> {
-        const params: T = { required: true, trigger: 'blur', ...options };
-        const r: Record<string, T[]> = {};
+    check(key: string, options: FormItemRule): FormRulesMap {
+        const params = { required: true, trigger: 'blur', ...options };
+        const r: FormRulesMap = {};
         r[key] = [{ ...params }];
         return r;
     },
