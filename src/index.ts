@@ -7,3 +7,4 @@ export { default as rules, IRuleOptions } from './libs/rules';
 export { default as rndColor } from './libs/rndColor';
 export { default as removeHtmlTag } from './libs/removeHtmlTag';
 export { default as imageSize } from './libs/imageSize';
+export { default as parseLyric } from './libs/parseLyric';
