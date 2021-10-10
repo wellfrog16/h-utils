@@ -5,6 +5,7 @@ import QRCode from 'qrcode';
 
 export const baseCdn = '//cdn.jsdelivr.net/npm';
 export const tinymceVersion = 'tinymce@5.8.1';
+export { RawEditorSettings } from 'tinymce/tinymce.d';
 
 export interface ICDNType {
     clipboard: typeof ClipboardJS;
