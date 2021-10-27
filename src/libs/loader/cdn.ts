@@ -2,6 +2,7 @@ import ClipboardJS from 'clipboard/src/clipboard';
 import Vditor from 'vditor/dist';
 import Tinymce from 'tinymce/tinymce';
 import QRCode from 'qrcode';
+import Cleave from 'cleave.js';
 
 export const baseCdn = '//cdn.jsdelivr.net/npm';
 export const tinymceVersion = 'tinymce@5.8.1';
@@ -13,6 +14,7 @@ export interface ICDNType {
     vditor: typeof Vditor;
     tinymce: typeof Tinymce;
     QRCode: typeof QRCode;
+    cleave: typeof Cleave;
 }
 
 const cdn = {
@@ -66,6 +68,13 @@ const cdn = {
             `${baseCdn}/qrcode@1.4.4/build/qrcode.min.js`,
         ],
     },
+    cleave: {
+        instance: () => window.Cleave as ICDNType['cleave'],
+        css: [],
+        js: [
+            `${baseCdn}/cleave.js@1.6.0`,
+        ],
+    }
 };
 
 export default cdn;

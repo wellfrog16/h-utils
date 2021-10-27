@@ -5,4 +5,5 @@ interface Window {
     Vditor: unknown;
     tinyMCE: unknown;
     QRCode: unknown;
+    Cleave: unknown;
 }
