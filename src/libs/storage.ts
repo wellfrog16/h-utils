@@ -6,37 +6,43 @@ const SECRET_KEY = 'THIS_IS_SECRET';
 
 // set 接口
 export interface IStorageSetOption {
-    expires?: number | Date,
-    encrypt?: boolean,
-    secret?: string,
+    expires?: number | Date;
+    encrypt?: boolean;
+    secret?: string;
+    instance?: Storage;
 }
 
 // get 接口
 export interface IStorageGetOption {
-    secret?: string,
+    secret?: string;
+    instance?: Storage;
+}
+
+// get 接口
+export interface IStorageRemoveOption {
+    instance?: Storage;
 }
 
 // storageData
 export interface IStorageData {
-    val: string | unknown,
-    type: string,
-    createAt: number,
-    expires?: number | string,
-    encrypt: boolean,
+    val: string | unknown;
+    type: string;
+    createAt: number;
+    expires?: number | string;
+    encrypt: boolean;
 }
-
-const use = { instance: localStorage };
 
 // 带有效期的localStorage
 
 // 删除指定的localStorge
-function remove(key: string) {
-    use.instance.removeItem(key);
+function remove(key: string, option?: IStorageRemoveOption) {
+    const { instance = localStorage } = option || {};
+    instance.removeItem(key);
 }
 
 // 设置localStorge
 function set<T = string>(key: string, value: T, option?: IStorageSetOption) {
-    const { expires, encrypt, secret } = option || {};
+    const { expires, encrypt, secret, instance = localStorage } = option || {};
 
     let type = 'undefined';
     isNumber(expires) && (type = 'number');
@@ -57,12 +63,13 @@ function set<T = string>(key: string, value: T, option?: IStorageSetOption) {
     };
 
     handle[type] && handle[type]();
-    use.instance.setItem(key, JSON.stringify(item));
+    instance.setItem(key, JSON.stringify(item));
 }
 
 // 获取localStorge
 function get<T>(key: string, option?: IStorageGetOption): T | string | null {
-    const val = use.instance.getItem(key);
+    const { secret, instance = localStorage } = option || {};
+    const val = instance.getItem(key);
     if (!val) { return val; }
 
     const item = JSON.parse(val); // 未做类型转换
@@ -96,7 +103,7 @@ function get<T>(key: string, option?: IStorageGetOption): T | string | null {
     if (!result) { return null; }
 
     try {
-        result = item.encrypt ? JSON.parse(AES.decrypt(result, option?.secret || SECRET_KEY).toString(encUtf8)) : result;
+        result = item.encrypt ? JSON.parse(AES.decrypt(result, secret || SECRET_KEY).toString(encUtf8)) : result;
     } catch (err) {
         console.warn(err);
         result = null;
@@ -104,9 +111,45 @@ function get<T>(key: string, option?: IStorageGetOption): T | string | null {
     return result;
 }
 
+const info = () => {
+    const count = (instance: Storage) => {
+        let size = 0;
+        for(const item in instance) {
+            if(instance.hasOwnProperty(item)) {
+                size += instance.getItem(item)?.length || 0;
+            }
+        }
+        return (size / 1024).toFixed(2) + ' KB';
+    }
+
+    const totalSpace = () => new Promise((resolve) => {
+        let test = '0123456789';
+        do { test += test; }
+        while (test.length < 10240)
+
+        let sum = test;
+        let timer = setInterval(() => {
+            sum += test;
+            try {
+                window.localStorage.removeItem('test-storage-space');
+                window.localStorage.setItem('test-storage-space', sum);
+            } catch {
+                resolve(`${sum.length / 1024} KB`);
+                clearInterval(timer);
+            }
+        }, 0)
+    })
+
+    return {
+        sessionSpace: count(sessionStorage),
+        localSpace: count(localStorage),
+        totalSpace,
+    }
+}
+
 export default {
-    use,
     set,
     get,
     remove,
+    info,
 };
