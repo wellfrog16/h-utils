@@ -1,4 +1,4 @@
-import type { FormRulesMap, FormItemRule } from 'element-plus/lib/el-form/src/form.type';
+import type { FormRulesMap, FormItemRule } from 'element-plus/es/components/form/src/form.type';
 
 export interface IRuleOptions {
     name: string;
