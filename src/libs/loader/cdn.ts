@@ -4,7 +4,6 @@ import Tinymce from 'tinymce/tinymce';
 import QRCode from 'qrcode';
 import Cleave from 'cleave.js';
 
-export const baseCdn = '//cdn.jsdelivr.net/npm';
 export const tinymceVersion = 'tinymce@5.8.1';
 export { RawEditorSettings } from 'tinymce/tinymce.d';
 
@@ -17,64 +16,82 @@ export interface ICDNType {
     cleave: typeof Cleave;
 }
 
-const cdn = {
-    screenfull: {
+export const baseCdnUrl = {
+    jsdelivr: '//cdn.jsdelivr.net/npm', // jsdelivr.net
+    defaultBase: window.h_utils.cdn.host || '//cdn.staticfile.org',
+}
+
+const cdnMapping = {
+    // 全屏
+    screenfull: (version: string = '4.0.1') => ({
         instance: () => window.screenfull as () => string,
-        css: [],
-        js: [
-            `${baseCdn}/screenfull@4.0.1`,
-        ],
-    },
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/screenfull@${version}`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/screenfull.js/${version}/screenfull.min.js`] },
+        }
+    }),
 
     // 复制黏贴
-    clipboard: {
+    clipboard: (version: string = '2.0.8') => ({
         instance: () => window.ClipboardJS as ICDNType['clipboard'],
-        css: [],
-        js: [
-            `${baseCdn}/clipboard@2.0.8`,
-        ],
-    },
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/clipboard@${version}`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/clipboard.js/${version}/clipboard.min.js`] },
+        }
+    }),
 
     // md编辑器
-    vditor: {
+    vditor: (version: string = '3.8.5') => ({
         instance: () => window.Vditor as ICDNType['vditor'],
-        css: [
-            `${baseCdn}/vditor@3.8.5/dist/index.css`,
-        ],
-        js: [
-            `${baseCdn}/vditor@3.8.5`,
-        ],
-    },
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/vditor@${version}`], css: [`${baseCdnUrl.jsdelivr}/vditor@${version}/dist/index.css`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/vditor/${version}/index.min.js`], css: [`${baseCdnUrl.defaultBase}/vditor/${version}/index.min.css`] },
+        }
+    }),
 
-    tinymce: {
+    // 富文本编辑器
+    tinymce: (version: string = '5.8.1') => ({
         instance: () => window.tinyMCE as ICDNType['tinymce'],
-        css: [
-            // `${baseCdn}/tinymce@5.8.1/skins/content/default/content.css`, // 会修改body
-            // `${baseCdn}/tinymce@5.8.1/skins/ui/oxide/skin.min.css`,
-            // `${baseCdn}/tinymce@5.8.1/skins/ui/oxide/content.min.css`,
-        ],
-        js: [
-            `${baseCdn}/tinymce@5.8.1`,
-            // `${baseCdn}/tinymce@5.8.1/themes/silver/theme.min.js`,
-            // `${baseCdn}/tinymce@5.8.1/icons/default/icons.js`,
-            // `${baseCdn}/tinymce@5.8.1/plugins/lists/plugin.js`,
-        ],
-    },
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/tinymce@${version}`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/tinymce/${version}/tinymce.min.js`] },
+        }
+    }),
 
-    QRCode: {
+    // 二维码生成
+    QRCode: (version: string = '1.4.4') => ({
         instance: () => window.QRCode as ICDNType['QRCode'],
-        css: [],
-        js: [
-            `${baseCdn}/qrcode@1.4.4/build/qrcode.min.js`,
-        ],
-    },
-    cleave: {
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/qrcode-generator@${version}`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/qrcode-generator/${version}/qrcode.min.js`] },
+        }
+    }),
+
+    // 千分位
+    cleave: (version: string = '1.6.0') => ({
         instance: () => window.Cleave as ICDNType['cleave'],
-        css: [],
-        js: [
-            `${baseCdn}/cleave.js@1.6.0`,
-        ],
-    }
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/cleave.js@${version}`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/cleave.js/${version}/cleave.min.js`] },
+        }
+    }),
 };
 
-export default cdn;
+type ICDNNameType = 'jsdelivr' | 'defaultBase';
+
+const cdnSource = (name: keyof typeof cdnMapping, version?: string) => {
+    const cdnName = (window.h_utils.cdn.name || 'jsdelivr') as ICDNNameType
+    const resource = cdnMapping[name];
+
+    if (!resource) {
+        const defaultResource = {
+            instance: () => ({} as unknown),
+            js: [`${baseCdnUrl.defaultBase}/${cdnName}.js/${version}/${cdnName}.min.js`],
+            css: [`${baseCdnUrl.defaultBase}/${cdnName}/${version}/${cdnName}.min.css`],
+        };
+        return defaultResource;
+    }
+    return Object.assign({ instance: () => {}, js:[], css:[] }, resource(version).source[cdnName]);
+}
+
+export default cdnSource;

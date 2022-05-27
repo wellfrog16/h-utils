@@ -1,4 +1,4 @@
-import cdn, { ICDNType, baseCdn, tinymceVersion } from './cdn';
+import cdnSource, { ICDNType, baseCdnUrl, tinymceVersion } from './cdn';
 
 export { RawEditorSettings } from 'tinymce/tinymce.d';
 export { ICDNType } from './cdn';
@@ -102,9 +102,9 @@ export const loadCss = (urls: string[]) => {
         });
 };
 
-export const loadCdnSingle = <T extends keyof ICDNType>(name: T) => {
-    if (!cdn[name]) { throw new Error(`${name} 不存在`); }
-    const { js, css, instance } = cdn[name];
+// 按库名加载cdn资源
+export const loadCdnSingle = <T extends keyof ICDNType>(name: T, version?: string) => {
+    const { js, css, instance } = cdnSource(name, version);
     Array.isArray(css) && css.length > 0 && loadCss(css);
 
     return new Promise<ICDNType[T]>((resolve, reject) => {
@@ -114,6 +114,7 @@ export const loadCdnSingle = <T extends keyof ICDNType>(name: T) => {
     });
 };
 
+// 按库名批量加载cdn资源
 export const loadCdn = <T extends keyof ICDNType>(names: T[]) => Promise.all(names.map(name => loadCdnSingle(name)));
 
 
@@ -123,7 +124,7 @@ export default {
     loadCss,
     loadCdnSingle,
     loadCdn,
-    baseCdn,
+    baseCdnUrl,
     tinymceVersion,
-    cdn,
+    cdnSource,
 }
