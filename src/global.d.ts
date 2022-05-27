@@ -7,6 +7,7 @@ interface Window {
     screenfull: unknown;
     Vditor: unknown;
     tinyMCE: unknown;
-    QRCode: unknown;
+    QRcodeGe: unknown;
+    QRcode: unknown;
     Cleave: unknown;
 }

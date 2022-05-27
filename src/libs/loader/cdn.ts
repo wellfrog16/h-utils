@@ -2,6 +2,7 @@ import ClipboardJS from 'clipboard/src/clipboard';
 import Vditor from 'vditor/dist';
 import Tinymce from 'tinymce/tinymce';
 import QRCode from 'qrcode';
+import QRcodeGe from 'qrcode-generator';
 import Cleave from 'cleave.js';
 
 export const tinymceVersion = 'tinymce@5.8.1';
@@ -12,13 +13,14 @@ export interface ICDNType {
     screenfull: string;
     vditor: typeof Vditor;
     tinymce: typeof Tinymce;
+    qrcodeGe: typeof QRcodeGe;
     QRCode: typeof QRCode;
     cleave: typeof Cleave;
 }
 
 export const baseCdnUrl = {
     jsdelivr: '//cdn.jsdelivr.net/npm', // jsdelivr.net
-    defaultBase: window.h_utils.cdn.host || '//cdn.staticfile.org',
+    defaultBase: window.h_utils?.cdn?.host || '//cdn.staticfile.org',
 }
 
 const cdnMapping = {
@@ -59,11 +61,20 @@ const cdnMapping = {
     }),
 
     // 二维码生成
-    QRCode: (version: string = '1.4.4') => ({
-        instance: () => window.QRCode as ICDNType['QRCode'],
+    qrcodeGe: (version: string = '1.4.4') => ({
+        instance: () => window.qrcode as ICDNType['qrcodeGe'],
         source: {
             jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/qrcode-generator@${version}`] },
             defaultBase: { js: [`${baseCdnUrl.defaultBase}/qrcode-generator/${version}/qrcode.min.js`] },
+        }
+    }),
+
+    // 二维码生成
+    QRCode: (version: string = '1.4.4') => ({
+        instance: () => window.QRcode as ICDNType['QRCode'],
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/qrcode@${version}/build/qrcode.min.js`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/qrcode/${version}/qrcode.min.js`] },
         }
     }),
 
@@ -80,7 +91,7 @@ const cdnMapping = {
 type ICDNNameType = 'jsdelivr' | 'defaultBase';
 
 const cdnSource = (name: keyof typeof cdnMapping, version?: string) => {
-    const cdnName = (window.h_utils.cdn.name || 'jsdelivr') as ICDNNameType
+    const cdnName = (window.h_utils?.cdn?.name || 'defaultBase') as ICDNNameType
     const resource = cdnMapping[name];
 
     if (!resource) {
@@ -91,7 +102,9 @@ const cdnSource = (name: keyof typeof cdnMapping, version?: string) => {
         };
         return defaultResource;
     }
-    return Object.assign({ instance: () => {}, js:[], css:[] }, resource(version).source[cdnName]);
+
+    const item = resource(version);
+    return Object.assign({ instance: () => {}, js:[], css:[] }, { ...item.source[cdnName], instance: item.instance });
 }
 
 export default cdnSource;
