@@ -1,6 +1,6 @@
 const removeHtmlTag = (str: string) => {
-    if (!str) { return ''; }
-    return str.replace(/<[^>]+>|&[^>]+;/g, '').trim();
+    if (!str) { return '' }
+    return str.replace(/<[^>]+>|&[^>]+;/g, '').trim()
 }
 
-export default removeHtmlTag;
+export default removeHtmlTag

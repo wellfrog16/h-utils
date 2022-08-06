@@ -1,0 +1,17 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "eslint.format.enable": true,
+  "eslint.run": "onSave",
+  "editor.formatOnSave": true,
+  "eslint.options": {
+    "extensions": [
+      ".ts",
+      ".d.ts",
+      ".js"
+    ]
+  },
+  "editor.bracketPairColorization.enabled": true,
+}

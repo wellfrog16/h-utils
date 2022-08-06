@@ -6,9 +6,9 @@ const parseLyric = (lrc: string) => {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i]
         const result = timeExp.exec(line)
-        if (!result) { continue; }
+        if (!result) { continue }
         const text = line.replace(timeExp, '').trim()
-        if (!text) { continue; }
+        if (!text) { continue }
         lyric.push({
             time: (<any>result[1] * 6e4 + <any>result[2] * 1e3 + (<any>result[3] || 0) * 1) / 1e3,
             text,
@@ -17,4 +17,4 @@ const parseLyric = (lrc: string) => {
     return lyric
 }
 
-export default parseLyric;
+export default parseLyric
