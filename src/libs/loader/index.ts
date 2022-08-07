@@ -1,4 +1,4 @@
-import cdnSource, { baseCdnUrl, tinymceVersion } from './cdn'
+import cdnSource, { baseCdnUrl, cdnMapping } from './cdn'
 import type { ICDNType } from './cdn'
 
 export { RawEditorSettings } from 'tinymce/tinymce.d'
@@ -128,6 +128,6 @@ export default {
     loadCdnSingle,
     loadCdn,
     baseCdnUrl,
-    tinymceVersion,
+    cdnMapping,
     cdnSource,
 }
