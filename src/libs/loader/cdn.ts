@@ -14,6 +14,8 @@ export interface ICDNType {
     qrcodeGe: typeof QRcodeGe
     QRCode: typeof QRCode
     cleave: typeof Cleave
+    fontawesomeCss: any
+    fontawesomeJs: any
 }
 
 export const baseCdnUrl = {
@@ -86,6 +88,28 @@ export const cdnMapping = {
             jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/cleave.js@${version}`] },
             defaultBase: { js: [`${baseCdnUrl.defaultBase}/cleave.js/${version}/cleave.min.js`] },
             localCDN: { js: [`${baseCdnUrl.localCDN}/cleave/${version}/cleave.min.js`] },
+        },
+    }),
+
+    // fontawesome 全量css版本
+    fontawesomeCss: (version = '6.1.2') => ({
+        version,
+        instance: () => window,
+        source: {
+            jsdelivr: { js: [], css: [`${baseCdnUrl.jsdelivr}/@fortawesome/fontawesome-free@${version}/css/all.min.css`] },
+            defaultBase: { js: [], css: [`${baseCdnUrl.defaultBase}/font-awesome/${version}/css/all.min.css`] },
+            localCDN: { js: [], css: [`${baseCdnUrl.localCDN}/font-awesome/${version}/css/all.min.css`] },
+        },
+    }),
+
+    // fontawesome 全量js版本
+    fontawesomeJs: (version = '6.1.2') => ({
+        version,
+        instance: () => window,
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/@fortawesome/fontawesome-free@${version}/js/all.min.js`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/font-awesome/${version}/js/all.min.js`] },
+            localCDN: { js: [`${baseCdnUrl.localCDN}/font-awesome/${version}/js/all.min.js`] },
         },
     }),
 }
