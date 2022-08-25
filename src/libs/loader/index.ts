@@ -108,12 +108,12 @@ export const loadCss = (urls: string[]) => {
 
 // 按库名加载cdn资源
 export const loadCdnSingle = <T extends keyof ICDNType>(name: T, version?: string) => {
-    const { js, css, instance } = cdnSource(name, version)
+    const { js = [], css, instance } = cdnSource(name, version) || {}
     Array.isArray(css) && css.length > 0 && loadCss(css)
 
     return new Promise<ICDNType[T]>((resolve, reject) => {
         loadScript(js)
-            .then(() => resolve(instance() as ICDNType[T]))
+            .then(() => resolve(instance?.() as ICDNType[T]))
             .catch(() => reject(new Error(`加载 ${name} 失败`)))
     })
 }

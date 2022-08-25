@@ -7,7 +7,7 @@ const outDir = './dist'
 
 const options = [
     {
-        external: ['lodash-es', 'crypto-js/aes', 'crypto-js/enc-utf8'],
+        // external: ['lodash-es', 'crypto-js/aes', 'crypto-js/enc-utf8'],
         input: 'src/index.ts',
         output: [
             {

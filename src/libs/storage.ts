@@ -1,6 +1,7 @@
 import { isDate, isNumber } from 'lodash-es'
 import AES from 'crypto-js/aes'
 import encUtf8 from 'crypto-js/enc-utf8'
+import defaultWindow from './defaultWindow'
 
 const SECRET_KEY = 'THIS_IS_SECRET'
 
@@ -134,8 +135,10 @@ const info = () => {
         const timer = setInterval(() => {
             sum += test
             try {
-                window.localStorage.removeItem('test-storage-space')
-                window.localStorage.setItem('test-storage-space', sum)
+                if (defaultWindow) {
+                    defaultWindow.localStorage.removeItem('test-storage-space')
+                    defaultWindow.localStorage.setItem('test-storage-space', sum)
+                }
             }
             catch {
                 resolve(`${sum.length / 1024} KB`)
