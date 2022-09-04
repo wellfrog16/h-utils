@@ -76,7 +76,7 @@ export const cdnMapping = {
         instance: () => defaultWindow ? defaultWindow.QRCode as ICDNType['QRCode'] : undefined,
         source: {
             jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/qrcode@${version}/build/qrcode.min.js`] },
-            defaultBase: { js: [`${baseCdnUrl.defaultBase}/qrcode/${version}/qrcode.min.js`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/qrcodejs/${version}/qrcode.min.js`] },
             localCDN: { js: [`${baseCdnUrl.localCDN}/qrcode/${version}/qrcode.min.js`] },
         },
     }),
@@ -120,7 +120,7 @@ type ICDNNameType = 'jsdelivr' | 'defaultBase' | 'localCDN'
 const cdnSource = (name: keyof typeof cdnMapping, version?: string) => {
     if (!defaultWindow) { return }
 
-    const cdnName = (window.h_utils?.cdn?.name || 'defaultBase') as ICDNNameType
+    const cdnName = (window.h_utils?.cdn?.name || 'jsdelivr') as ICDNNameType
     const resource = cdnMapping[name]
 
     if (!resource) {
