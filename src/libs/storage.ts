@@ -1,6 +1,6 @@
 import { isDate, isNumber } from 'lodash-es'
-import AES from 'crypto-js/aes'
-import encUtf8 from 'crypto-js/enc-utf8'
+import AES from 'crypto-js/aes.js'
+import encUtf8 from 'crypto-js/enc-utf8.js'
 import defaultWindow from './defaultWindow'
 
 const SECRET_KEY = 'THIS_IS_SECRET'

@@ -11,8 +11,8 @@ const options = [
         input: 'src/index.ts',
         output: [
             {
-                file: `${outDir}/index.js`,
-                format: 'es',
+                file: `${outDir}/index.mjs`,
+                format: 'esm',
                 sourcemap: true,
             },
             {
