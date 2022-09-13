@@ -118,7 +118,7 @@ export const cdnMapping = {
 
     cropper: (version = '1.5.12') => ({
         version,
-        instance: () => defaultWindow ? defaultWindow.tinyMCE as ICDNType['cropper'] : undefined,
+        instance: () => defaultWindow ? defaultWindow.Cropper as ICDNType['cropper'] : undefined,
         source: {
             jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/cropperjs@${version}`], css: [`${baseCdnUrl.jsdelivr}/cropperjs@${version}/dist/cropper.min.css`] },
             defaultBase: { js: [`${baseCdnUrl.defaultBase}/cropperjs/${version}/cropper.min.js`], css: [`${baseCdnUrl.defaultBase}/cropperjs/${version}/cropper.min.css`] },
