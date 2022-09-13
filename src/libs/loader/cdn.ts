@@ -5,6 +5,7 @@ import type QRCode from 'qrcode'
 import type QRcodeGe from 'qrcode-generator'
 import type Cleave from 'cleave.js'
 import type Screenfull from 'screenfull'
+import type Cropper from 'cropperjs'
 
 export { RawEditorSettings } from 'tinymce/tinymce.d'
 
@@ -17,6 +18,7 @@ export interface ICDNType {
     cleave: typeof Cleave
     fontawesomeCss: any
     fontawesomeJs: any
+    cropper: typeof Cropper
 }
 
 export const baseCdnUrl = {
@@ -111,6 +113,16 @@ export const cdnMapping = {
             jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/@fortawesome/fontawesome-free@${version}/js/all.min.js`] },
             defaultBase: { js: [`${baseCdnUrl.defaultBase}/font-awesome/${version}/js/all.min.js`] },
             localCDN: { js: [`${baseCdnUrl.localCDN}/font-awesome/${version}/js/all.min.js`] },
+        },
+    }),
+
+    cropper: (version = '1.5.12') => ({
+        version,
+        instance: () => defaultWindow ? defaultWindow.tinyMCE as ICDNType['cropper'] : undefined,
+        source: {
+            jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/cropperjs@${version}`], css: [`${baseCdnUrl.jsdelivr}/cropperjs@${version}/dist/cropper.min.css`] },
+            defaultBase: { js: [`${baseCdnUrl.defaultBase}/cropperjs/${version}/cropper.min.js`], css: [`${baseCdnUrl.defaultBase}/cropperjs/${version}/cropper.min.css`] },
+            localCDN: { js: [`${baseCdnUrl.localCDN}/cropperjs/${version}/cropper.min.js`], css: [`${baseCdnUrl.localCDN}/cropperjs/${version}/cropper.min.css`] },
         },
     }),
 }

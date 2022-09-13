@@ -10,4 +10,5 @@ interface Window {
     qrcode: unknown;
     QRCode: unknown;
     Cleave: unknown;
+    Cropper: unknown;
 }
