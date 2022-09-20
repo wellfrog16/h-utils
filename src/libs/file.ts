@@ -83,6 +83,8 @@ export const dataURLToFile = (dataurl: string, fileName: string) => {
     return new File([data.uint8Array], fileName, { type: data.type })
 }
 
+export const blobToFile = (blob: Blob, fileName: string) => new File([blob], fileName, { type: blob.type, lastModified: Date.now() })
+
 // Blob转image，todo：测试
 export const blobToImage = (blob: Blob) => new Promise<HTMLImageElement>((resolve, reject) => {
     fileOrBlobToDataURL(blob).then(dataurl => {
@@ -146,6 +148,7 @@ export default {
     blobToImage,
     imageToBlob,
     blobToCanvas,
+    blobToFile,
     canvasToBlob,
     imageToDataURL,
     dataURLToImage,
