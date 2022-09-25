@@ -7,22 +7,12 @@ const outDir = './dist'
 
 const options = [
     {
-        // external: ['lodash-es', 'crypto-js/aes', 'crypto-js/enc-utf8'],
+        external: ['lodash-es', 'crypto-js/aes.js', 'crypto-js/enc-utf8.js'],
         input: 'src/index.ts',
         output: [
             {
                 file: `${outDir}/index.mjs`,
                 format: 'esm',
-                sourcemap: true,
-            },
-            {
-                file: `${outDir}/cjs.js`,
-                format: 'cjs',
-                sourcemap: true,
-            },
-            {
-                file: `${outDir}/amd.js`,
-                format: 'amd',
                 sourcemap: true,
             },
         ],
