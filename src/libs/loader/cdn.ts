@@ -19,6 +19,7 @@ export interface ICDNType {
     fontawesomeCss: any
     fontawesomeJs: any
     cropper: typeof Cropper
+    flagIcons: any
 }
 
 export const baseCdnUrl = {
@@ -123,6 +124,17 @@ export const cdnMapping = {
             jsdelivr: { js: [`${baseCdnUrl.jsdelivr}/cropperjs@${version}`], css: [`${baseCdnUrl.jsdelivr}/cropperjs@${version}/dist/cropper.min.css`] },
             defaultBase: { js: [`${baseCdnUrl.defaultBase}/cropperjs/${version}/cropper.min.js`], css: [`${baseCdnUrl.defaultBase}/cropperjs/${version}/cropper.min.css`] },
             localCDN: { js: [`${baseCdnUrl.localCDN}/cropperjs/${version}/cropper.min.js`], css: [`${baseCdnUrl.localCDN}/cropperjs/${version}/cropper.min.css`] },
+        },
+    }),
+
+    // flagIcons
+    flagIcons: (version = '6.6.6') => ({
+        version,
+        instance: () => defaultWindow,
+        source: {
+            jsdelivr: { js: [], css: [`${baseCdnUrl.jsdelivr}/flag-icons@${version}/css/flag-icons.min.css`] },
+            defaultBase: { js: [], css: [`${baseCdnUrl.defaultBase}/flag-icons/${version}/css/flag-icons.min.css`] },
+            localCDN: { js: [], css: [`${baseCdnUrl.localCDN}/flag-icons/${version}/css/flag-icons.min.css`] },
         },
     }),
 }
