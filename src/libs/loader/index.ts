@@ -50,7 +50,7 @@ export const loadScriptSingle = (url: string) => new Promise((resolve, reject) =
             head.appendChild(script)
         }
         else { // 多个程序同时加载同一个cdn资源，则用计时器检测loader状态
-            const timeout = 3000 // 检测超时上限
+            const timeout = 10000 // 检测超时上限
             const interval = 10 // 检测频率
             let times = 0 // 已用时
 
