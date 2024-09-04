@@ -68,19 +68,19 @@ function set<T = string>(key: string, value: T, option?: IStorageSetOption) {
 }
 
 // 获取localStorge
-function get<T>(key: string, option?: IStorageGetOption): T | string | null {
+function get<T = string>(key: string, option?: IStorageGetOption): T | undefined {
     const { secret, instance = localStorage } = option || {}
     const val = instance.getItem(key)
-    if (!val) { return val }
+    if (val === null) { return undefined }
 
     const item = JSON.parse(val) // 未做类型转换
-    let result: string | null = null
+    let result: string | undefined = undefined
 
     const handle: Record<string, () => void> = {
         date() {
-            if (new Date() > new Date(item.expires)) {
+            if (new Date() > new Date(item.expires)) { // 过期
                 remove(key)
-                result = ''
+                result = undefined
             }
             else {
                 result = item.val
@@ -88,9 +88,9 @@ function get<T>(key: string, option?: IStorageGetOption): T | string | null {
         },
         number() {
             const ss = (new Date().getTime() - item.createAt) / 1000
-            if (ss > +item.expires) {
+            if (ss > +item.expires) { // 过期
                 remove(key)
-                result = ''
+                result = undefined
             }
             else {
                 result = item.val
@@ -103,16 +103,16 @@ function get<T>(key: string, option?: IStorageGetOption): T | string | null {
 
     handle[item.type] && handle[item.type]()
 
-    if (!result) { return null }
+    if (!result) { return undefined }
 
     try {
         result = item.encrypt ? JSON.parse(AES.decrypt(result, secret || SECRET_KEY).toString(encUtf8)) : result
     }
     catch (err) {
         console.warn(err)
-        result = null
+        result = undefined
     }
-    return result
+    return result as T | undefined
 }
 
 const info = () => {
