@@ -1,21 +1,7 @@
 {
   "name": "@wfrog/utils",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "",
-  "main": "dist/index.mjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "rollup --config",
-    "publish2": "npm publish --access public",
-    "doc": "typedoc src/index.ts"
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "utils"
-  ],
   "author": "wellfrog",
   "license": "ISC",
   "homepage": "https://github.com/wellfrog16/h-utils",
@@ -23,6 +9,20 @@
     "type": "git",
     "url": "git://github.com/wellfrog16/h-utils.git",
     "web": "https://github.com/wellfrog16/h-utils"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup --config",
+    "publish2": "npm publish --access public",
+    "doc": "typedoc src/index.ts"
   },
   "dependencies": {
     "clipboard": "2.0.11",
